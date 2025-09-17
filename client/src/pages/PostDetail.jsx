@@ -12,7 +12,7 @@ const PostDetail = () => {
   useEffect(() => {
     API.get(`/blog/${id}`).then((res) => {
       setPost(res.data);
-      console.log(res.data);
+      
     });
   }, [id]);
 
