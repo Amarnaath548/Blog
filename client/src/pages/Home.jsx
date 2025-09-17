@@ -15,6 +15,7 @@ const Home = () => {
   
   return (
     <div className="row">
+      {!posts?(<div>Loading posts</div>):''}
       {posts.map((post) => (
         <div className="col-md-4 mb-4" key={post._id} onClick={()=>{navigate(`/post/${post._id}`)}} style={{ cursor: "pointer" }}>
           <div className="card shadow-sm h-100">
