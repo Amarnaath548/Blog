@@ -1,8 +1,10 @@
-const mongoose=require('mongoose');
+const mongoose = require('mongoose');
 
-const connectDB=async () => {
+const connectDB = async () => {
     try {
-        const conn=await mongoose.connect(process.env.MONGODB_URL);
+        const conn = await mongoose.connect(process.env.MONGODB_URL, {
+            authSource: "admin"
+        });
         console.log('db connected');
     } catch (error) {
         console.log(error);
@@ -10,4 +12,4 @@ const connectDB=async () => {
     }
 }
 
-module.exports=connectDB;
+module.exports = connectDB;
