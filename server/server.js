@@ -4,11 +4,14 @@ const express = require("express");
 const connectDB = require("./config/db.js");
 const authRouter = require("./routes/authRoute.js");
 const blogRouter = require('./routes/blogRoute.js');
-const path=require('path')
+const path=require('path');
+const morgan = require("morgan");
 
 dotenv.config();
 const app = express();
 connectDB();
+
+app.use(morgan("dev"));
 
 app.use(cors());
 app.use(express.json());
