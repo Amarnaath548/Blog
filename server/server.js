@@ -13,7 +13,10 @@ connectDB();
 
 app.use(morgan("dev"));
 
-app.use(cors());
+app.use(cors({
+    origin:["https://cozy-granita-4e4548.netlify.app/"],
+    credentials:true
+}));
 app.use(express.json());
 
 
