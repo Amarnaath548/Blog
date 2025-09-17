@@ -1,10 +1,10 @@
 const express=require("express");
-const multer=require('multer');
+const upload=require('../middlewares/upload.js')
 const auth=require('../middlewares/authMiddlewares.js');
 const {createPost,getPosts,getPost,updatePost,deletePost}=require('../countrollers/blogController.js');
 
 const router=express.Router();
-const upload= multer({dest:"uploads/"});
+
 
 router.post('/',auth,upload.single('image'),createPost);
 

@@ -21,7 +21,7 @@ const Home = () => {
             {post.image && (
               <img
                 className="card-img-top"
-                src={`http://localhost:5000/${post.image.replace(/\\/g, "/")}`}
+                src={post.image}
                 alt={post.title}
               />
             )}

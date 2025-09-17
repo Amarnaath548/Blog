@@ -30,7 +30,7 @@ const PostDetail = () => {
         <div className="card shadow-sm">
           {post.image && (
             <img
-              src={`http://localhost:5000/${post.image.replace(/\\/g, "/")}`}
+              src={post.image}
               alt={post.title}
               className="card-img-top"
             />

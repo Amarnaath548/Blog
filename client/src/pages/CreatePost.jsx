@@ -14,7 +14,8 @@ const CreatePost = () => {
     data.append("title",form.title);
     data.append("content",form.content);
     if(form.image) data.append("image",form.image)
-    await API.post('/blog',data);
+    await API.post('/blog',data,{
+  headers : {'Content-Type' : 'multpart/form-data'}});
     navigate('/')
   };
 

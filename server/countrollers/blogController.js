@@ -5,7 +5,7 @@ const createPost = async (req, res) => {
     const post =await Blog.create({
       title: req.body.title,
       content: req.body.content,
-      image: req.file?.path.replace(/\\/g, "/"),
+      image: req.file?req.file.path.replace(/\\/g, "/"):null,
       author: req.user.id,
     });
     res.json({ post });

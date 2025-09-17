@@ -22,7 +22,8 @@ export default function EditPost() {
     data.append("content", form.content);
     if (form.image) data.append("image", form.image);
 
-    await API.post(`/blog/${id}`, data);
+    await API.post(`/blog/${id}`, data,{
+  headers : {'Content-Type' : 'multpart/form-data'}});
     navigate(`/post/${id}`);
   };
 
