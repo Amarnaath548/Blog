@@ -5,21 +5,28 @@ import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
   const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ title: "", content: "", image: null });
   const navigate=useNavigate();
 
   const submit = async (e) => {
     e.preventDefault();
-    const data=new FormData();
+    setLoading(true);
+    try{
+ const data=new FormData();
     data.append("title",form.title);
     data.append("content",form.content);
     if(form.image) data.append("image",form.image)
-    await API.post('/blog',data,{
-  headers : {'Content-Type' : 'multpart/form-data'}});
+    await API.post('/blog',data);
     navigate('/')
+    }finally{
+      setLoading(false)
+    }
+   
   };
 
   if (!user) return <p className="text-center mt-4">Login to create posts</p>;
+  if(loading) return <p className="text-center mt-4">Publishing...</p>
   return (
     <div className="row justify-content-center">
       <div className="col-md-8">
