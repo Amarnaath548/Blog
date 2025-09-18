@@ -18,13 +18,14 @@ const Home = () => {
       {posts.length === 0 ? (
   <div className="text-center my-5">Loading posts...</div>
 ) : (posts.map((post) => (
-        <div className="col-md-4 mb-4" key={post._id} onClick={()=>{navigate(`/post/${post._id}`)}} style={{ cursor: "pointer" }}>
-          <div className="card shadow-sm h-100">
+        <div className="col-md-4 mb-4 " key={post._id} onClick={()=>{navigate(`/post/${post._id}`)}} style={{ cursor: "pointer" }}>
+          <div className="card shadow-sm h-100 rounded">
             {post.image && (
               <img
-                className="card-img-top"
+                className="card-img-top rounded"
                 src={post.image}
                 alt={post.title}
+                style={{ height: "200px", objectFit: "cover" }}
               />
             )}
             <div className="card-body">

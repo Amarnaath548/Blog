@@ -9,4 +9,4 @@ API.interceptors.request.use((req)=>{
 })
 
 export default API;
-//https://blog-886j.onrender.com
+//https://blog-886j.onrender.com http://localhost:5000

@@ -27,12 +27,12 @@ const PostDetail = () => {
   return (
     <div className="row justify-content-center">
       <div className="col-md-8">
-        <div className="card shadow-sm">
+        <div className="card shadow-sm rounded">
           {post.image && (
             <img
               src={post.image}
               alt={post.title}
-              className="card-img-top"
+              className="card-img-top rounded"
             />
           )}
            <div className="card-body">
