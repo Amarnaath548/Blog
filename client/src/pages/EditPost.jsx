@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../api/api.js";
+import { toast } from "react-toastify";
 
 export default function EditPost() {
   const { id } = useParams();
+  const [updating,setUpdating]=useState(false)
   const navigate = useNavigate();
   const [form, setForm] = useState({ title: "", content: "", image: null });
   const [loading, setLoading] = useState(true);
@@ -17,14 +19,22 @@ export default function EditPost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = new FormData();
+    setUpdating(true);
+    try {
+      const data = new FormData();
     data.append("title", form.title);
     data.append("content", form.content);
     if (form.image) data.append("image", form.image);
 
-    await API.post(`/blog/${id}`, data,{
-  headers : {'Content-Type' : 'multpart/form-data'}});
+    await API.post(`/blog/${id}`, data);
+    setUpdating(false)
+    toast.success('Post updated successfully')
     navigate(`/post/${id}`);
+    } catch (error) {
+      setUpdating(false);
+      toast.error(error.response?.data?.mess || "Error ,Please try agian");
+    }
+    
   };
 
   if (loading) return <p className="text-center mt-4">Loading...</p>;
@@ -60,9 +70,14 @@ export default function EditPost() {
                 onChange={(e) => setForm({ ...form, image: e.target.files[0] })}
               />
             </div>
-            <button type="submit" className="btn btn-primary">
+            {updating?(
+              <p className="text-info">Updating please wait</p>
+            ):(
+              <button type="submit" className="btn btn-primary">
               Save Changes
             </button>
+            )}
+            
           </form>
         </div>
       </div>

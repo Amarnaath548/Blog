@@ -17,6 +17,7 @@ app.use(cors({
     origin:["https://mernstackblogbyamarnaath.netlify.app"],
     credentials:true
 }));
+//,"http://localhost:5173"
 app.use(express.json());
 
 

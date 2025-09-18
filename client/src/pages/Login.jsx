@@ -2,11 +2,13 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import API from "../api/api";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [loggingin, setLoggingin] = useState(false);
   const [form, setForm] = useState({ email: "", password: "" });
-  const { login } = useContext(AuthContext);
+  const { login, user } = useContext(AuthContext);
   const togglePasswordVisibility = () => {
     setShowPassword((pre) => !pre);
   };
@@ -15,9 +17,17 @@ const Login = () => {
 
   const submit = async (e) => {
     e.preventDefault();
-    const res = await API.post("auth/login", form);
-    login(res.data);
-    navigate("/");
+    try {
+      setLoggingin(true);
+      const res = await API.post("auth/login", form);
+      login(res.data);
+      toast.success(`Wellcom back ${res.data.user.username}`);
+      setLoggingin(false);
+      navigate("/");
+    } catch (error) {
+      toast.error(error.response?.data?.mess || "Login failed. Please try again.");
+      setLoggingin(false);
+    }
   };
   return (
     <div className="row justify-content-center">
@@ -64,9 +74,13 @@ const Login = () => {
               </button>
             </div>
 
-            <button type="submit" className="btn btn-primary w-100">
-              Login
-            </button>
+            {loggingin ? (
+              <p className="text-info">Loggin in please wait</p>
+            ) : (
+              <button type="submit" className="btn btn-primary w-100">
+                Login
+              </button>
+            )}
           </form>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AuthContext, AuthProvider } from "./context/AuthContext";
-
+import { ToastContainer } from "react-toastify";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -45,8 +45,18 @@ const App = () => {
               }
             />
             <Route path="/post/:id" element={<PostDetail />} />
+            <Route path="*" element={<p className="text-center mt-5">Page not found</p>} />
           </Routes>
         </main>
+        <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        theme="colored" 
+      />
       </BrowserRouter>
     </AuthProvider>
   );

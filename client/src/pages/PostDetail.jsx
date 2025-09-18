@@ -41,7 +41,7 @@ const PostDetail = () => {
               By {post.author?.username || "Unknown"} •{" "}
               {new Date(post.createdAt).toLocaleDateString()}
             </p>
-            <p className="card-text" style={{ whiteSpace: "pre-line" }}>
+            <p className="card-text" style={{ whiteSpace: "pre-line", textAlign: "justify" }}>
               {post.content}
             </p>
             {user && user.id === post.author?._id && (

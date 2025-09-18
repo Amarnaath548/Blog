@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import API from "../api/api";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const CreatePost = () => {
   const { user } = useContext(AuthContext);
@@ -20,7 +21,12 @@ const CreatePost = () => {
     await API.post('/blog',data);
     navigate('/')
     }finally{
-      setLoading(false)
+      setLoading(false);
+      toast.success("Published successfully", {
+      className: "bg-success text-white",
+      bodyClassName: "fs-6",
+      progressClassName: "bg-light"  
+    });
     }
    
   };

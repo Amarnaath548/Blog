@@ -2,9 +2,11 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import API from "../api/api";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [loggingin, setLoggingin] = useState(false);
   const [form, setForm] = useState({ username: "", email: "", password: "" });
   const { login } = useContext(AuthContext);
   const togglePasswordVisibility = () => {
@@ -15,9 +17,20 @@ const Login = () => {
 
   const submit = async (e) => {
     e.preventDefault();
+    try {
+       setLoggingin(true);
     const res = await API.post("auth/register", form);
     login(res.data);
+    setLoggingin(false);
+    toast.success(`Wellcom ${res.data.user.username}`);
     navigate("/");
+    } catch (error) {
+
+      toast.error(error.response?.data?.mess || "Registeration failed. Please try again.");
+      setLoggingin(false);
+          
+    }
+   
   };
   return (
     <div className="row justify-content-center">
@@ -66,6 +79,7 @@ const Login = () => {
                   setForm({ ...form, password: e.target.value });
                 }}
               />
+              <p className="fw-light">Password must be at least 6 characters long</p>
               <button
                 className="mt-3 btn btn-light"
                 onClick={togglePasswordVisibility}
@@ -73,9 +87,14 @@ const Login = () => {
                 {showPassword ? "Hide" : "Show"} Password
               </button>
             </div>
-            <button type="submit" className="btn btn-primary w-100">
+            {loggingin?(
+              <p className="text-info">Registering please wait</p>
+            ):(
+              <button type="submit" className="btn btn-primary w-100">
               Register
             </button>
+            )}
+            
           </form>
         </div>
       </div>
