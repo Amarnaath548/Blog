@@ -33,6 +33,7 @@ const PostDetail = () => {
               src={post.image}
               alt={post.title}
               className="card-img-top rounded"
+              loading="lazy"
             />
           )}
            <div className="card-body">

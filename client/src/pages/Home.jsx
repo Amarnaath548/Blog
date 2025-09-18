@@ -25,6 +25,7 @@ const Home = () => {
                 className="card-img-top rounded"
                 src={post.image}
                 alt={post.title}
+                loading="lazy"
                 style={{ height: "200px", objectFit: "cover" }}
               />
             )}
