@@ -1,16 +1,18 @@
-import React, { useContext } from "react";
+import React, { lazy, Suspense, useContext } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AuthContext, AuthProvider } from "./context/AuthContext";
 import { ToastContainer } from "react-toastify";
-import Register from "./pages/Register";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import CreatePost from "./pages/CreatePost";
-import EditPost from "./pages/EditPost";
-import PostDetail from "./pages/PostDetail";
-import Navbar from "./components/Navbar";
+const Register=lazy(()=> import("./pages/Register"));
+const Home=lazy(()=> import("./pages/Home"));
+const Login=lazy(()=> import("./pages/Login"));
+const CreatePost=lazy(()=> import("./pages/CreatePost"));
+const EditPost=lazy(()=> import("./pages/EditPost"));
+const PostDetail=lazy(()=> import("./pages/PostDetail"));
+const Navbar=lazy(()=> import("./components/Navbar"));
+
 
 const ProtectedRoute = ({ children }) => {
+
   const { user } = useContext(AuthContext);
   if (!user) {
     return <Navigate to="/login" />;
@@ -22,6 +24,7 @@ const App = () => {
   return (
     <AuthProvider>
       <BrowserRouter>
+      <Suspense fallback={<div className="text-center my-5">Loading page…</div>}>
         <Navbar/>
         <main className="container mt-4">
           <Routes>
@@ -57,6 +60,7 @@ const App = () => {
         pauseOnHover
         theme="colored" 
       />
+      </Suspense>
       </BrowserRouter>
     </AuthProvider>
   );
