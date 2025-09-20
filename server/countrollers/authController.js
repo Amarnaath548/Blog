@@ -43,7 +43,7 @@ const register=async (req,res) => {
         
         jwtSign(res,user)
     } catch (error) {
-        onsole.log(error);
+        console.log(error);
         res.status(500).json({mess:"server error"});
     }
     
