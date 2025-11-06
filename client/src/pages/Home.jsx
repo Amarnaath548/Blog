@@ -8,8 +8,10 @@ const Home = () => {
   const navigate=useNavigate();
 
   useEffect(() => {
-    API.get("/blog").then((res) =>setPosts(res.data) );
-    
+    API.get("/blog").then((res) =>{
+      setPosts(res.data) 
+      console.log("posts",posts)
+    });
   }, []);
 
   
