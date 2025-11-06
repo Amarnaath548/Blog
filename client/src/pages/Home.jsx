@@ -8,7 +8,7 @@ const Home = () => {
   const navigate=useNavigate();
 
   useEffect(() => {
-    API.get("/blog").then((res) =>setPosts(res.data)).then((res)=>console.log(posts));
+    API.get("/blog").then((res) =>setPosts(res.data));
   }, []);
 
   
