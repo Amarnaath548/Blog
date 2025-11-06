@@ -22,7 +22,7 @@ const Home = () => {
             {post.image && (
               <img
                 className="card-img-top rounded"
-                src={post.image}
+                src={post.image.replace("/upload/", "/upload/f_auto,q_auto/")}
                 alt={post.title}
                 loading="lazy"
                 style={{ height: "200px", objectFit: "cover" }}
