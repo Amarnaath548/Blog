@@ -3,7 +3,7 @@ const jwt=require('jsonwebtoken');
 
 module.exports=function (req,res,next) {
     const token = req.header('Authorization')?.split(' ')[1];
-    if(!token) return res.status(401).json({mess:"no token"});
+    if(!token) return res.status(401).json({msg:"no token"});
 
 
     try {
@@ -12,6 +12,6 @@ module.exports=function (req,res,next) {
         next()
     } catch (error) {
         console.log(error);
-        res.status(401).json({mess:"Token is not valid"})
+        res.status(401).json({msg:"Token is not valid"})
     }
 }

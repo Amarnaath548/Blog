@@ -1,14 +1,14 @@
 import React, { useContext, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import API from "../api/api";
 import { toast } from "react-toastify";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loggingin, setLoggingin] = useState(false);
   const [form, setForm] = useState({ email: "", password: "" });
-  const { login, user } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const togglePasswordVisibility = () => {
     setShowPassword((pre) => !pre);
   };
@@ -25,7 +25,7 @@ const Login = () => {
       setLoggingin(false);
       navigate("/");
     } catch (error) {
-      toast.error(error.response?.data?.mess || "Login failed. Please try again.");
+      toast.error(error.response?.data?.msg || "Login failed. Please try again.");
       setLoggingin(false);
     }
   };

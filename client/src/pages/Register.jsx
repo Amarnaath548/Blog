@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import API from "../api/api";
 import { toast } from "react-toastify";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -26,7 +26,7 @@ const Login = () => {
     navigate("/");
     } catch (error) {
 
-      toast.error(error.response?.data?.mess || "Registeration failed. Please try again.");
+      toast.error(error.response?.data?.msg || "Registeration failed. Please try again.");
       setLoggingin(false);
           
     }

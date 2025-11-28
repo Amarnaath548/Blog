@@ -32,7 +32,7 @@ export default function EditPost() {
     navigate(`/post/${id}`);
     } catch (error) {
       setUpdating(false);
-      toast.error(error.response?.data?.mess || "Error ,Please try agian");
+      toast.error(error.response?.data?.msg || "Error ,Please try agian");
     }
     
   };

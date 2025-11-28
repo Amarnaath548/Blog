@@ -1,7 +1,8 @@
 import React, { lazy, Suspense, useContext } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { AuthContext, AuthProvider } from "./context/AuthContext";
 import { ToastContainer } from "react-toastify";
+import { AuthProvider } from "./context/AuthProvider";
+import { AuthContext } from "./context/AuthContext";
 const Register=lazy(()=> import("./pages/Register"));
 const Home=lazy(()=> import("./pages/Home"));
 const Login=lazy(()=> import("./pages/Login"));
