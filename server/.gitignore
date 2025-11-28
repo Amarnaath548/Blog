@@ -39,8 +39,5 @@ coverage/
 dist/
 build/
 
-# Uploaded files (if any)
-uploads/
-
 # Other temporary files
 *.tgz
