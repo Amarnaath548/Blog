@@ -19,14 +19,22 @@ const CreatePost = () => {
     data.append("content",form.content);
     if(form.image) data.append("image",form.image)
     await API.post('/blog',data);
-    navigate('/')
-    }finally{
-      setLoading(false);
-      toast.success("Published successfully", {
+  toast.success("Published successfully", {
       className: "bg-success text-white",
       bodyClassName: "fs-6",
       progressClassName: "bg-light"  
     });
+    navigate('/')
+    }catch(err){
+      console.error("Error publishing post:", err);
+      toast.error("Failed to publish post. Please try again.", {
+        className: "bg-danger text-white",
+        bodyClassName: "fs-6",
+        progressClassName: "bg-light"  
+      });
+    }
+    finally{
+      setLoading(false);
     }
    
   };

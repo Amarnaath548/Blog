@@ -31,7 +31,7 @@ const PostDetail = () => {
             <img
               src={post.image}
               alt={post.title}
-              className="rounded img-fluid md- w-75 mx-auto d-block"
+              className="rounded img-fluid col-12 col-md-6 mx-auto d-block"
               loading="lazy"
             />
            
