@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { AuthProvider } from "./context/AuthProvider";
 import { AuthContext } from "./context/AuthContext";
+import ThemeController from "./components/ThemeController";
 const Register=lazy(()=> import("./pages/Register"));
 const Home=lazy(()=> import("./pages/Home"));
 const Login=lazy(()=> import("./pages/Login"));
@@ -22,12 +23,14 @@ const ProtectedRoute = ({ children }) => {
 };
 
 const App = () => {
+  const { isDarkMode } = useContext(AuthContext);
   return (
     <AuthProvider>
+      <ThemeController/>
       <BrowserRouter>
       <Suspense fallback={<div className="text-center my-5">Loading page…</div>}>
         <Navbar/>
-        <main className="container mt-4">
+        <main className={`container mt-4 ${isDarkMode ? "text-white" : ""}`}>
           <Routes>
             <Route path="/register" element={<Register />} />
             <Route path="/" element={<Home />} />

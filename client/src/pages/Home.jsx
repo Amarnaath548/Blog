@@ -1,8 +1,9 @@
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import React, { useEffect, useState, useCallback, useMemo, useContext } from "react";
 import API from "../api/api";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
-// Define the getPaginationItems helper function here (or import it)
+
 const getPaginationItems = (totalPages, currPage) => {
     const items = [];
     const boundarySize = 3;
@@ -13,7 +14,7 @@ const getPaginationItems = (totalPages, currPage) => {
             items.push(i);
         }
     } else if (currPage <= centerCutoff) {
-        // Start: 1 2 3 4 ... 9 10
+       
         for (let i = 1; i <= boundarySize + 1; i++) {
             items.push(i);
         }
@@ -21,7 +22,7 @@ const getPaginationItems = (totalPages, currPage) => {
         items.push(totalPages - 1);
         items.push(totalPages);
     } else if (currPage > totalPages - centerCutoff) {
-        // End: 1 2 ... 7 8 9 10
+        
         items.push(1);
         items.push(2);
         items.push("...");
@@ -29,7 +30,7 @@ const getPaginationItems = (totalPages, currPage) => {
             items.push(i);
         }
     } else {
-        // Middle: 1 2 ... 4 5 6 ... 9 10
+        
         items.push(1);
         items.push(2);
         items.push("...");
@@ -40,7 +41,7 @@ const getPaginationItems = (totalPages, currPage) => {
         items.push(totalPages - 1);
         items.push(totalPages);
     }
-    // Remove duplicates and ensure the array is clean (optional but safe)
+   
     return Array.from(new Set(items)).filter(item => item !== '...' || items.indexOf(item) === items.lastIndexOf('...'));
 };
 
@@ -52,6 +53,7 @@ const Home = () => {
   const [loading, setLoading] = useState(false); 
   const [error, setError] = useState(null); 
   const navigate = useNavigate();
+  const {isDarkMode}=useContext(AuthContext)
 
   const handlePageChange = useCallback((page) => {
     if (page >= 1 && page <= totalPages) {
@@ -80,7 +82,7 @@ const Home = () => {
     fetchPosts();
   }, [currPage]);
 
-  // Use useMemo to prevent recalculating items on every render
+  
   const paginationItems = useMemo(() => 
     getPaginationItems(totalPages, currPage)
   , [totalPages, currPage]);
@@ -88,7 +90,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="row">
+      <div className={`row `}>
         {loading ? (
           <div className="text-center my-5">
             <div className="spinner-border text-primary" role="status">
@@ -112,7 +114,7 @@ const Home = () => {
               }}
               style={{ cursor: "pointer" }}
             >
-              <div className="card shadow-sm h-100 rounded">
+              <div className={`card shadow-sm h-100 rounded ${isDarkMode ? "bg-dark text-white border-secondary" : ""}`}>
                 {post.image && (
                   <img
                     className="card-img-top rounded"
@@ -123,77 +125,81 @@ const Home = () => {
                   />
                 )}
                 <div className="card-body">
-                  <h5 className="card-title">{post.title}</h5>
-                  <p className="card-text">
-                    {post.content.length > 100
-                      ? post.content.substring(0, 100) + "..."
-                      : post.content}
-                  </p>
-                </div>
+          
+          <h5 className="card-title">{post.title}</h5>
+          <p className="card-text">
+            {post.content.length > 100
+              ? post.content.substring(0, 100) + "..."
+              : post.content}
+          </p>
+        </div>
               </div>
             </div>
           ))
         )}
       </div>
       
-      {/* Pagination Controls */}
-      {totalPages > 1 && !loading && (
-        <div className="d-flex justify-content-center my-4">
-          <nav aria-label="Page navigation">
-            <ul className="pagination">
-              {/* Previous Button */}
-              <li className={`page-item ${currPage === 1 ? "disabled" : ""}`}>
-                <button
-                  className="page-link"
-                  onClick={() => handlePageChange(currPage - 1)}
-                  disabled={currPage === 1}
-                  aria-label="Previous"
-                >
-                  Previous
-                </button>
+      
+     {totalPages > 1 && !loading && (
+    <div className="d-flex justify-content-center my-4">
+      <nav aria-label="Page navigation">
+        <ul className="pagination">
+          
+          
+          <li className={`page-item ${currPage === 1 ? "disabled" : ""}`}>
+            <button
+              className={`page-link ${isDarkMode ? "bg-dark text-white border-secondary" : ""}`}
+              onClick={() => handlePageChange(currPage - 1)}
+              disabled={currPage === 1}
+              aria-label="Previous"
+            >
+              Previous
+            </button>
+          </li>
+
+          
+          {paginationItems.map((item, index) =>
+            item === "..." ? (
+              <li key={`ellipsis-${index}`} className="page-item disabled">
+                <span className={`page-link ${isDarkMode ? "bg-dark text-white border-secondary" : ""}`}>...</span>
               </li>
-
-              {/* Dynamic Page Items */}
-              {paginationItems.map((item, index) =>
-                item === "..." ? (
-                  <li key={`ellipsis-${index}`} className="page-item disabled">
-                    <span className="page-link">...</span>
-                  </li>
-                ) : (
-                  <li
-                    key={item}
-                    className={`page-item ${item === currPage ? "active" : ""}`}
-                  >
-                    <button
-                      className="page-link"
-                      onClick={() => handlePageChange(item)}
-                      aria-current={item === currPage ? "page" : undefined}
-                    >
-                      {item}
-                    </button>
-                  </li>
-                )
-              )}
-
-              {/* Next Button */}
+            ) : (
               <li
-                className={`page-item ${
-                  currPage === totalPages ? "disabled" : ""
-                }`}
+                key={item}
+                
+                className={`page-item ${item === currPage ? "active" : ""} ${isDarkMode ? "border-secondary" : ""}`}
               >
                 <button
-                  className="page-link"
-                  onClick={() => handlePageChange(currPage + 1)}
-                  disabled={currPage === totalPages}
-                  aria-label="Next"
+                 
+                  className={`page-link ${isDarkMode && item !== currPage ? "bg-dark text-white border-secondary" : ""}`}
+                  onClick={() => handlePageChange(item)}
+                  aria-current={item === currPage ? "page" : undefined}
                 >
-                  Next
+                  {item}
                 </button>
               </li>
-            </ul>
-          </nav>
-        </div>
-      )}
+            )
+          )}
+
+         
+          <li
+            className={`page-item ${
+              currPage === totalPages ? "disabled" : ""
+            }`}
+          >
+            <button
+              className={`page-link ${isDarkMode ? "bg-dark text-white border-secondary" : ""}`}
+              onClick={() => handlePageChange(currPage + 1)}
+              disabled={currPage === totalPages}
+              aria-label="Next"
+            >
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  )}
     </>
   );
 };
