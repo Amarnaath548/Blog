@@ -30,7 +30,7 @@ const App = () => {
       <BrowserRouter>
       <Suspense fallback={<div className="text-center my-5">Loading page…</div>}>
         <Navbar/>
-        <main className={`container mt-6 ${isDarkMode ? "text-white" : ""}`}>
+        <main className={`container mt-4 ${isDarkMode ? "text-white" : ""}`}>
           <Routes>
             <Route path="/register" element={<Register />} />
             <Route path="/" element={<Home />} />
