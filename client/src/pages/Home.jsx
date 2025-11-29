@@ -90,7 +90,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="row">
+      <div className="row pt-4">
         {loading ? (
           <div className="text-center my-5">
             <div className="spinner-border text-primary" role="status">
