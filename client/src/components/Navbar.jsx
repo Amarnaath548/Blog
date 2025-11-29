@@ -36,7 +36,7 @@ const Navbar = () => {
                 <img
                   src={isDarkMode ? lightMode : darkMode}
                   alt="theme toggle"
-                  style={{ width: "24px", height: "24px" }}
+                  style={{ width: "24px", height: "24px" , filter: isDarkMode ? "invert(1)" : "none" }}
                 />
               </button>
             </li>
