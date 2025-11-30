@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import API from "../api/api";
 import { AuthContext } from "../context/AuthContext";
+import AddComments from "../components/AddComments";
+import CommentsController from "../components/CommentsController";
 
 const PostDetail = () => {
   const {isDarkMode}=useContext(AuthContext)
@@ -94,6 +96,8 @@ const PostDetail = () => {
               )}
             </div>
           </article>
+          <AddComments id={id}/>
+          <CommentsController id={id}/>
         </div>
       </div>
     </div>

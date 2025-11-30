@@ -4,7 +4,7 @@ const express = require("express");
 const connectDB = require("./config/db.js");
 const authRouter = require("./routes/authRoute.js");
 const blogRouter = require("./routes/blogRoute.js");
-const path = require("path");
+const commentRouter = require("./routes/commentRoute.js");
 const morgan = require("morgan");
 
 dotenv.config();
@@ -28,6 +28,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRouter);
 app.use("/api/blog", blogRouter);
+app.use("/api/comments", commentRouter);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

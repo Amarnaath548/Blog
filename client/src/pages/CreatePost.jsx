@@ -11,15 +11,6 @@ const CreatePost = () => {
   const { isDarkMode } = useContext(AuthContext);
   const navigate = useNavigate();
 
- 
-  const formControlClass = isDarkMode
-    ? "form-control bg-secondary text-white border-light"
-    : "form-control";
-
-  const cardBodyClass = isDarkMode
-    ? "card-body p-4 bg-dark text-white"
-    : "card-body p-4";
-
   const submit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -58,9 +49,12 @@ const CreatePost = () => {
             isDarkMode ? "bg-dark text-white" : ""
           }`}
         >
-          <div className={cardBodyClass}>
+          <div
+            className={
+              isDarkMode ? "card-body p-4 bg-dark text-white" : "card-body p-4"
+            }
+          >
             {" "}
-           
             <h3 className="card-title mb-4">Create post</h3>
             <form onSubmit={submit}>
               <div className="mb-3">
@@ -70,7 +64,11 @@ const CreatePost = () => {
                 <input
                   type="text"
                   id="title"
-                  className={formControlClass}
+                  className={
+                    isDarkMode
+                      ? "form-control bg-secondary text-white border-light"
+                      : "form-control"
+                  }
                   value={form.title}
                   onChange={(e) => setForm({ ...form, title: e.target.value })}
                   required
@@ -82,7 +80,11 @@ const CreatePost = () => {
                 </label>
                 <textarea
                   id="content"
-                  className={formControlClass}
+                  className={
+                    isDarkMode
+                      ? "form-control bg-secondary text-white border-light"
+                      : "form-control"
+                  }
                   onChange={(e) =>
                     setForm({ ...form, content: e.target.value })
                   }
@@ -93,7 +95,7 @@ const CreatePost = () => {
                 <label htmlFor="image" className="form-label">
                   Image
                 </label>
-               
+
                 <input
                   type="file"
                   accept="image/*"
