@@ -11,6 +11,7 @@ const CreatePost=lazy(()=> import("./pages/CreatePost"));
 const EditPost=lazy(()=> import("./pages/EditPost"));
 const PostDetail=lazy(()=> import("./pages/PostDetail"));
 const Navbar=lazy(()=> import("./components/Navbar"));
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 
 const ProtectedRoute = ({ children }) => {
@@ -64,6 +65,7 @@ const App = () => {
         pauseOnHover
         theme="colored" 
       />
+        <SpeedInsights />
       </Suspense>
       </BrowserRouter>
     </AuthProvider>
