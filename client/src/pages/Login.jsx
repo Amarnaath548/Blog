@@ -38,7 +38,7 @@ const Login = () => {
   };
   
   return (
-    <div className="row justify-content-center">
+    <div className="pt-2 row justify-content-center">
       <div className="col-md-4">
         
         <div className={`card shadow p-4 ${isDarkMode ? "bg-dark text-white border-light" : ""}`}>
